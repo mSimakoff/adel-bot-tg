@@ -2,5 +2,7 @@ django
 gunicorn
 django-heroku
 requests
-random
+pip
+pyTelegram
+pyTelegramBotAPI
 telebot
