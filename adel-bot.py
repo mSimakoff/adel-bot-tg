@@ -65,13 +65,34 @@ def get_text_messages(message):
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, но пока я в разработке ты можешь узнать погоду "
                                                "(/weather) или подбросить монетку (/coin)")
-    elif message.text == "How are U" or "Как дела" or "Как дела?":
+    elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "Подбрось монетку" or "/coin":
+    elif message.text == "Как дела":
+        answer = how_are_you()
+        bot.send_message(message.from_user.id, answer)
+    elif message.text == "Как дела?":
+        answer = how_are_you()
+        bot.send_message(message.from_user.id, answer)
+    elif message.text == "Подбрось монетку":
         answer = process_coin()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "/weather" or "Как погода?" or "Погода" or "Сегодня будет дождь?" or "Сегодня будет снег?":
+    elif message.text == "/coin":
+        answer = process_coin()
+        bot.send_message(message.from_user.id, answer)
+    elif message.text == "/weather":
+        city = "Нижний Новгород"
+        # weather = what_weather(city)
+        bot.send_message(message.from_user.id, what_weather())
+    elif message.text == "Как погода?":
+        city = "Нижний Новгород"
+        # weather = what_weather(city)
+        bot.send_message(message.from_user.id, what_weather())
+    elif message.text == "Сегодня будет дождь?":
+        city = "Нижний Новгород"
+        # weather = what_weather(city)
+        bot.send_message(message.from_user.id, what_weather())
+    elif message.text == "Сегодня будет снег?":
         city = "Нижний Новгород"
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather())
