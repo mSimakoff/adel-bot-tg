@@ -1,6 +1,4 @@
 # coding=utf-8
-from tkinter import *
-import datetime as dt
 import requests
 import random
 
