@@ -19,6 +19,14 @@ bot = telebot.TeleBot('1001294980:AAHK0Ich3vr7dJ8i7p3PGZwpYSBP1Tisbj8')
 def make_url():
     return "http://wttr.in/Нижний_Новгород"
 
+def process_coin():
+    coin = random.randrange(0, 3)
+    if coin == 0:
+        return 'Орёл!'
+    elif coin == 1:
+        return 'Решка!'
+    else:
+        return random.choice(['Зависла в воздухе', 'Закатилась за угол', 'Ребро!', 'Тебе так нужен этот выбор?'])
 
 def make_parameters():
     params = {
@@ -53,9 +61,13 @@ def get_text_messages(message):
     if message.text == "Hello":
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
     elif message.text == "/help":
-        bot.send_message(message.from_user.id, "Я могу много всего, но пока я в разработке, зайди позже)")
+        bot.send_message(message.from_user.id, "Я могу много всего, но пока я в разработке ты можешь узнать погоду "
+                                               "(/weather) или подбросить монетку (/coin)")
     elif message.text == "How are U":
         answer = how_are_you()
+        bot.send_message(message.from_user.id, answer)
+    elif message.text == "Подбрось монетку" or "/coin":
+        answer = process_coin()
         bot.send_message(message.from_user.id, answer)
     elif message.text == "/weather":
         city = "Нижний Новгород"
