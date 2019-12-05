@@ -1,1 +1,1 @@
-web: python adel-bot.py
+worker: python adel-bot.py
