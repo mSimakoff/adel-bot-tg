@@ -65,6 +65,4 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
 
 
-bot.polling(none_stop=True, interval=0)
-
-# python /Users/mSimakoff/Documents/PycharmProjects/criptexx/Bot\ \#TEST.py
+bot.polling(none_stop=True, interval=10)
