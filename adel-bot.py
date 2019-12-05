@@ -57,12 +57,12 @@ def get_text_messages(message):
     elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "Weather":
+    elif message.text == "/weather":
         city = "Нижний Новгород"
         #weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather())
     else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
+        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help или /weather")
 
 
 bot.polling(none_stop=True, interval=1)
