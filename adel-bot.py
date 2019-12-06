@@ -27,7 +27,7 @@ def process_coin():
     elif coin == 1:
         return 'Решка!'
     else:
-        return random.choice(['Зависла в воздухе', 'Закатилась за угол', 'Ребро!', 'Тебе так нужен этот выбор?'])
+        return random.choice(['Зависла в воздухе', 'Закатилась за угол', 'Ребро!', 'Тебе не нужен этот выбор, поверь)'])
 
 
 def make_parameters():
