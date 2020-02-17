@@ -87,7 +87,7 @@ def get_text_messages(message):
     elif message.text == "/weather":
         bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text.find("погод") != -1:
-        if message.find(":") != -1:
+        if message.text.find(":") != -1:
             message_weather = message.split(": ")
             city = message_weather[1]
             bot.send_message(message.from_user.id, what_weather(city))
@@ -130,3 +130,5 @@ bot.polling(none_stop=True, interval=5)
 
 while (True):
     timebrew()
+
+#python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
