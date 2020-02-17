@@ -88,7 +88,7 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text.find("погод") != -1:
         if message.find(":") != -1:
-            message_weather = message.split(":")
+            message_weather = message.split(": ")
             city = message_weather[1]
             bot.send_message(message.from_user.id, what_weather(city))
         else:
