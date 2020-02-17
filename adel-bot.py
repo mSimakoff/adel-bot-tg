@@ -71,31 +71,28 @@ def how_are_you():
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message == "Hello":
+    if message.text == "Hello":
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
-    elif message == "/help":
+    elif message.text == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
     elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "Как дела":
+    elif message.text.find("Как дел") != -1:
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "Как дела?":
-        answer = how_are_you()
-        bot.send_message(message.from_user.id, answer)
-    elif message.text == "Подбрось монетку":
-        answer = process_coin()
-        bot.send_message(message.from_user.id, answer)
-    elif message.text == "/coin":
+    elif message.text.find("монет") != -1:
         answer = process_coin()
         bot.send_message(message.from_user.id, answer)
     elif message.text == "/weather":
-        # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "Как погода?":
-        # weather = what_weather(city)
-        bot.send_message(message.from_user.id, what_weather(cityNN))
+    elif message.text.find("погод") != -1:
+        if message.find(":") != -1:
+            message_weather = message.split(":")
+            city = message_weather[1]
+            bot.send_message(message.from_user.id, what_weather(city))
+        else:
+            bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text == "Сегодня будет дождь?":
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
@@ -105,7 +102,7 @@ def get_text_messages(message):
     elif message.text.find("акци") != -1:
         bot.send_message(message.from_user.id, "Скоро я смогу рассчитывать акции для тебя")
     else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help или /weather")
+        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help")
 
 
 # bot.polling(none_stop=True, interval=1)
