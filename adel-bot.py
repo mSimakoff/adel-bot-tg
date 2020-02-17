@@ -71,21 +71,20 @@ def how_are_you():
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    message = message.lower()
-    if message == "hello":
+    if message == "Hello":
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
     elif message == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
-    elif message.text == "how are U":
+    elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "как дела":
+    elif message.text == "Как дела":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "как дела?":
+    elif message.text == "Как дела?":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text == "подбрось монетку":
+    elif message.text == "Подбрось монетку":
         answer = process_coin()
         bot.send_message(message.from_user.id, answer)
     elif message.text == "/coin":
@@ -94,13 +93,13 @@ def get_text_messages(message):
     elif message.text == "/weather":
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "как погода?":
+    elif message.text == "Как погода?":
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "сегодня будет дождь?":
+    elif message.text == "Сегодня будет дождь?":
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "сегодня будет снег?":
+    elif message.text == "Сегодня будет снег?":
         # weather = what_weather(city)
         bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text.find("акци") != -1:
