@@ -7,11 +7,12 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = '0.2.4⍺'
+version = ' 0.2.4.4⍺'
 
-message_about = ('Привет, я Адель, меня создали чтобы помогать тебе '
-                 'Мой ленивый создатель постепенно учит меня, я становлюсь умнее'
-                 ' Сейчас он говорит что моя версия ', str(version), 'но он говорит что я когда нибудь выйду из альфы')
+message_about = ('Привет, я Адель, меня создали чтобы помогать тебе\n'
+                 'Мой ленивый создатель постепенно учит меня, я становлюсь умнее\n'
+                 ' Сейчас он говорит что моя '
+                 'версия ' + str(version) + ' ,но я верю, что я когда нибудь выйду из альфы')
 
 invest_wrong_message = ('Ты не указал цену, повтори свой запрос, в конце указав цену через двоеточие '
                         'Например Посчитай сколько надо купить акций на сумму: 1000')
@@ -44,11 +45,6 @@ def process_coin():
         return random.choice(['Зависла в воздухе', 'Закатилась за угол', 'Ребро!', 'Тебе не нужен этот выбор, поверь)'])
 
 
-def tickers(price):
-    first_full_price = (price * 1.03)
-    profit = 10  # in rubles
-
-
 def make_parameters():
     params = {
         # 'format': 1,  # погода одной строкой
@@ -79,7 +75,7 @@ def invest(price):
     # profit = 10
     # fee = 1.03
     total_cost = (1000 / 103) + first_cost
-    return (total_cost)
+    return total_cost
 
 
 def how_are_you():
@@ -131,8 +127,9 @@ def get_text_messages(message):
         if message.text.find(":") != -1:
             message_price = message.text.split(": ")
             price = message_price[1]
+            final_price = str(invest(price))
             bot.send_message(message.from_user.id, 'Чтобы получить выгоду, тебе надо купить на'
-                                                   '' + str(invest(price)) + 'рублей')
+                                                   '' + final_price + 'рублей')
         else:
             bot.send_message(message.from_user.id, invest_wrong_message)
     else:
@@ -142,25 +139,7 @@ def get_text_messages(message):
 # bot.polling(none_stop=True, interval=1)
 
 
-def timebrew():
-    message = ''
-    realtime = dt.datetime.utcnow()
-    nowtime = realtime.strftime("%H:%M")
-    if nowtime.split(':')[0] == 12:
-        mssg = 'Хватит отдыхать, работай!'
-        # bot.send_message(message.from_user.id, mssg)
-        bot.send_message(message.from_user.id, mssg)
-    elif nowtime.split(':')[0] == 14:
-        return 'Прошло два часа, а ты не изменил мир к лучешму'
-    elif nowtime.split(':')[0] == 16:
-        return 'Если я бы была буратино, то, говоря что ты работаешь, мой нос увеличивался бы до огромных размеров'
-    elif nowtime.split(':')[0] == 18:
-        return 'Скажи мне, что полезного ты сделал за этот день?'
-
-
 bot.polling(none_stop=True, interval=5)
 
-while (True):
-    timebrew()
 
 # python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
