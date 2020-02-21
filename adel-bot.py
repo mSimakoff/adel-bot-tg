@@ -7,10 +7,15 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = ' 0.2.4.4⍺'
+version = ' 0.2.5⍺'
+
+love_answer = ['Любит, и очень сильно, рррр',
+               'Конечно любит, рыка',
+               'Я люблю тебя, моя милая',
+               'Очень любит и скучает по тебе']
 
 message_about = ('Привет, я Адель, меня создали чтобы помогать тебе\n'
-                 'Мой ленивый создатель постепенно учит меня, я становлюсь умнее\n'
+                 'Мой ленивый отец постепенно учит меня, я становлюсь умнее\n'
                  ' Сейчас он говорит что моя '
                  'версия ' + str(version) + ' ,но я верю, что я когда нибудь выйду из альфы')
 
@@ -94,6 +99,8 @@ def get_text_messages(message):
     elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
+    elif message.text.find("") != -1 & message.text.find("") != -1:
+        bot.send_message(message.from_user.id, random.choice(love_answer))
     elif message.text.find("Как дел") != -1:
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
