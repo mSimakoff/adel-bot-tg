@@ -99,7 +99,7 @@ def get_text_messages(message):
     elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text.find("") != -1 & message.text.find("") != -1:
+    elif message.text.find("иш") != -1 & message.text.find("люб") != -1:
         bot.send_message(message.from_user.id, random.choice(love_answer))
     elif message.text.find("Как дел") != -1:
         answer = how_are_you()
