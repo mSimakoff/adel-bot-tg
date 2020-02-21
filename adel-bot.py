@@ -7,6 +7,15 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
+version = '0.2.4⍺'
+
+message_about = ('Привет, я Адель, меня создали чтобы помогать тебе '
+                 'Мой ленивый создатель постепенно учит меня, я становлюсь умнее'
+                 ' Сейчас он говорит что моя версия ', str(version), 'но он говорит что я когда нибудь выйду из альфы')
+
+invest_wrong_message = ('Ты не указал цену, повтори свой запрос, в конце указав цену через двоеточие '
+                        'Например Посчитай сколько надо купить акций на сумму: 1000')
+
 answers = ['Норм.',
            'Лучше всех :)',
            'Ну такое', 'Отличненько!',
@@ -34,11 +43,10 @@ def process_coin():
     else:
         return random.choice(['Зависла в воздухе', 'Закатилась за угол', 'Ребро!', 'Тебе не нужен этот выбор, поверь)'])
 
-def tickers(price):
-    first_full_price = (price*1.03)
-    profit = 10 # in rubles
-    
 
+def tickers(price):
+    first_full_price = (price * 1.03)
+    profit = 10  # in rubles
 
 
 def make_parameters():
@@ -65,14 +73,26 @@ def what_weather(city):
         return '<сетевая ошибка>\nНо в душе всегда солнце)\n\nПроверь соединение и повтори попытку'
 
 
+def invest(price):
+    # first_cost = 0
+    first_cost = price
+    # profit = 10
+    # fee = 1.03
+    total_cost = (1000 / 103) + first_cost
+    return (total_cost)
+
+
 def how_are_you():
     return random.choice(answers)
 
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message.text == "Hello":
+    if message.text.find("Hello") != -1:
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
+    # version
+    if message.text.find("себе") != -1:
+        bot.send.message(message.from_user.id, message_about)
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
     elif message.text == "How are U":
@@ -93,14 +113,28 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, what_weather(city))
         else:
             bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "Сегодня будет дождь?":
-        # weather = what_weather(city)
-        bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text == "Сегодня будет снег?":
-        # weather = what_weather(city)
-        bot.send_message(message.from_user.id, what_weather(cityNN))
+    elif message.text.find("дождь") != -1:
+        if message.text.find(":") != -1:
+            message_weather = message.text.split(": ")
+            city = message_weather[1]
+            bot.send_message(message.from_user.id, what_weather(city))
+        else:
+            bot.send_message(message.from_user.id, what_weather(cityNN))
+    elif message.text.find("снег") != -1:
+        if message.text.find(":") != -1:
+            message_weather = message.text.split(": ")
+            city = message_weather[1]
+            bot.send_message(message.from_user.id, what_weather(city))
+        else:
+            bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text.find("акци") != -1:
-        bot.send_message(message.from_user.id, "Скоро я смогу рассчитывать акции для тебя")
+        if message.text.find(":") != -1:
+            message_price = message.text.split(": ")
+            price = message_price[1]
+            bot.send_message(message.from_user.id, 'Чтобы получить выгоду, тебе надо купить на'
+                                                   '' + str(invest(price)) + 'рублей')
+        else:
+            bot.send_message(message.from_user.id, invest_wrong_message)
     else:
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help")
 
@@ -124,11 +158,9 @@ def timebrew():
         return 'Скажи мне, что полезного ты сделал за этот день?'
 
 
-
 bot.polling(none_stop=True, interval=5)
-
 
 while (True):
     timebrew()
 
-#python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
+# python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
