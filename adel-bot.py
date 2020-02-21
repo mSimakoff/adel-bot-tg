@@ -92,7 +92,7 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
     # version
     if message.text.find("себе") != -1:
-        bot.send.message(message.from_user.id, message_about)
+        bot.send_message(message.from_user.id, message_about)
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
     elif message.text == "How are U":
