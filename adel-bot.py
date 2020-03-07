@@ -7,7 +7,7 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = ' 0.2.9⍺'
+version = ' 0.3⍺'
 
 gd_dy = ['Добрый день!',
          'День добрый!',
@@ -105,9 +105,10 @@ def invest(price):
 def how_are_you():
     return random.choice(answers)
 
-try:
-    @bot.message_handler(content_types=['text'])
-    def get_text_messages(message):
+
+@bot.message_handler(content_types=['text'])
+def get_text_messages(message):
+    try:
         if message.text.find("Hello") != -1:
             bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
         # version
@@ -137,23 +138,21 @@ try:
             weather_snow_rain(message.text)
         elif message.text.find("обр") != -1:
             if message.text.find("ое утр") != -1:
-                bot.send.message(message.from_user.id, random.choice(gd_mnng))
+                bot.send_message(message.from_user.id, random.choice(gd_mnng))
             elif message.text.find("рый ден") != -1:
-                bot.send.message(message.from_user.id, random.choice(gd_dy))
+                bot.send_message(message.from_user.id, random.choice(gd_dy))
         elif message.text.find("акци") != -1:
             if message.text.find(":") != -1:
                 message_price = message.text.split(": ")
                 price = message_price[1]
                 final_price = str(invest(price))
                 bot.send_message(message.from_user.id, 'Чтобы получить выгоду, тебе надо купить на'
-                                                   '' + final_price + 'рублей')
+                                                       '' + final_price + 'рублей')
             else:
                 bot.send_message(message.from_user.id, invest_wrong_message)
         else:
             bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help")
-except Exception:
-    @bot.message_handler(content_types=['text'])
-    def exception(message):
+    except Exception:
         bot.send_message(message.from_user.id, 'Произошла какая то ошибка, свяжитесь пожалуйста с @msimakoff')
 
 
