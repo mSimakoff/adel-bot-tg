@@ -7,7 +7,15 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = ' 0.2.6⍺'
+version = ' 0.2.7⍺'
+
+gd_dy = ['Добрый день!',
+         'День добрый!',
+         'Have a nice day!']
+
+gd_mnng = ['Доброе утречко',
+           'Доброе!',
+           'Good morning!']
 
 love_answer = ['Любит, и очень сильно, рррр',
                'Конечно любит, рыка',
@@ -127,6 +135,11 @@ def get_text_messages(message):
         weather_snow_rain(message.text)
     elif message.text.find("снег") != -1:
         weather_snow_rain(message.text)
+    elif message.text.find("обр") != -1:
+        if message.text.find("ое утр") != -1:
+            bot.send.message(message.from_user.id, random.choice(gd_mnng))
+        elif message.text.find("рый ден") != -1:
+            bot.send.message(message.from_user.id, random.choice(gd_dy))
     elif message.text.find("акци") != -1:
         if message.text.find(":") != -1:
             message_price = message.text.split(": ")
@@ -144,5 +157,3 @@ def get_text_messages(message):
 
 
 bot.polling(none_stop=True, interval=5)
-
-# python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
