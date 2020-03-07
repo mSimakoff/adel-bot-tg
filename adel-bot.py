@@ -7,12 +7,14 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = ' 0.2.5⍺'
+version = ' 0.2.6⍺'
 
 love_answer = ['Любит, и очень сильно, рррр',
                'Конечно любит, рыка',
                'Я люблю тебя, моя милая',
-               'Очень любит и скучает по тебе']
+               'Очень любит и скучает по тебе',
+               'K.,k.',
+               'Он говорит, что ты рыка любимая']
 
 message_about = ('Привет, я Адель, меня создали чтобы помогать тебе\n'
                  'Мой ленивый отец постепенно учит меня, я становлюсь умнее\n'
@@ -62,6 +64,15 @@ def make_parameters():
     return params
 
 
+def weather_snow_rain(text):
+    if text.find(":") != -1:
+        message_weather = text.split(": ")
+        city = message_weather[1]
+        bot.send_message(text.from_user.id, what_weather(city))
+    else:
+        bot.send_message(text.from_user.id, what_weather(cityNN))
+
+
 def what_weather(city):
     try:
         response = requests.get(make_url(city), params=make_parameters())
@@ -92,16 +103,17 @@ def get_text_messages(message):
     if message.text.find("Hello") != -1:
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
     # version
-    if message.text.find("себе") != -1:
+    elif message.text.find("себе") != -1:
         bot.send_message(message.from_user.id, message_about)
     elif message.text == "/help":
         bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
     elif message.text == "How are U":
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
-    elif message.text.find("иш") != -1 & message.text.find("люб") != -1:
-        bot.send_message(message.from_user.id, random.choice(love_answer))
-    elif message.text.find("Как дел") != -1:
+    elif message.text.find("иш") != -1:
+        if message.text.find("люб") != -1:
+            bot.send_message(message.from_user.id, random.choice(love_answer))
+    elif message.text.find("ак дел") != -1:
         answer = how_are_you()
         bot.send_message(message.from_user.id, answer)
     elif message.text.find("монет") != -1:
@@ -110,26 +122,11 @@ def get_text_messages(message):
     elif message.text == "/weather":
         bot.send_message(message.from_user.id, what_weather(cityNN))
     elif message.text.find("погод") != -1:
-        if message.text.find(":") != -1:
-            message_weather = message.text.split(": ")
-            city = message_weather[1]
-            bot.send_message(message.from_user.id, what_weather(city))
-        else:
-            bot.send_message(message.from_user.id, what_weather(cityNN))
+        weather_snow_rain(message.text)
     elif message.text.find("дождь") != -1:
-        if message.text.find(":") != -1:
-            message_weather = message.text.split(": ")
-            city = message_weather[1]
-            bot.send_message(message.from_user.id, what_weather(city))
-        else:
-            bot.send_message(message.from_user.id, what_weather(cityNN))
+        weather_snow_rain(message.text)
     elif message.text.find("снег") != -1:
-        if message.text.find(":") != -1:
-            message_weather = message.text.split(": ")
-            city = message_weather[1]
-            bot.send_message(message.from_user.id, what_weather(city))
-        else:
-            bot.send_message(message.from_user.id, what_weather(cityNN))
+        weather_snow_rain(message.text)
     elif message.text.find("акци") != -1:
         if message.text.find(":") != -1:
             message_price = message.text.split(": ")
@@ -147,6 +144,5 @@ def get_text_messages(message):
 
 
 bot.polling(none_stop=True, interval=5)
-
 
 # python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
