@@ -7,7 +7,7 @@ import telebot
 realtime = dt.datetime.utcnow()
 nowtime = realtime.strftime("%H:%M")
 
-version = ' 0.2.7⍺'
+version = ' 0.2.9⍺'
 
 gd_dy = ['Добрый день!',
          'День добрый!',
@@ -105,55 +105,61 @@ def invest(price):
 def how_are_you():
     return random.choice(answers)
 
-
-@bot.message_handler(content_types=['text'])
-def get_text_messages(message):
-    if message.text.find("Hello") != -1:
-        bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
-    # version
-    elif message.text.find("себе") != -1:
-        bot.send_message(message.from_user.id, message_about)
-    elif message.text == "/help":
-        bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
-    elif message.text == "How are U":
-        answer = how_are_you()
-        bot.send_message(message.from_user.id, answer)
-    elif message.text.find("иш") != -1:
-        if message.text.find("люб") != -1:
-            bot.send_message(message.from_user.id, random.choice(love_answer))
-    elif message.text.find("ак дел") != -1:
-        answer = how_are_you()
-        bot.send_message(message.from_user.id, answer)
-    elif message.text.find("монет") != -1:
-        answer = process_coin()
-        bot.send_message(message.from_user.id, answer)
-    elif message.text == "/weather":
-        bot.send_message(message.from_user.id, what_weather(cityNN))
-    elif message.text.find("погод") != -1:
-        weather_snow_rain(message.text)
-    elif message.text.find("дождь") != -1:
-        weather_snow_rain(message.text)
-    elif message.text.find("снег") != -1:
-        weather_snow_rain(message.text)
-    elif message.text.find("обр") != -1:
-        if message.text.find("ое утр") != -1:
-            bot.send.message(message.from_user.id, random.choice(gd_mnng))
-        elif message.text.find("рый ден") != -1:
-            bot.send.message(message.from_user.id, random.choice(gd_dy))
-    elif message.text.find("акци") != -1:
-        if message.text.find(":") != -1:
-            message_price = message.text.split(": ")
-            price = message_price[1]
-            final_price = str(invest(price))
-            bot.send_message(message.from_user.id, 'Чтобы получить выгоду, тебе надо купить на'
+try:
+    @bot.message_handler(content_types=['text'])
+    def get_text_messages(message):
+        if message.text.find("Hello") != -1:
+            bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
+        # version
+        elif message.text.find("себе") != -1:
+            bot.send_message(message.from_user.id, message_about)
+        elif message.text == "/help":
+            bot.send_message(message.from_user.id, "Я могу много всего, просто пни моего создателя @msimakoff")
+        elif message.text == "How are U":
+            answer = how_are_you()
+            bot.send_message(message.from_user.id, answer)
+        elif message.text.find("иш") != -1:
+            if message.text.find("люб") != -1:
+                bot.send_message(message.from_user.id, random.choice(love_answer))
+        elif message.text.find("ак дел") != -1:
+            answer = how_are_you()
+            bot.send_message(message.from_user.id, answer)
+        elif message.text.find("монет") != -1:
+            answer = process_coin()
+            bot.send_message(message.from_user.id, answer)
+        elif message.text == "/weather":
+            bot.send_message(message.from_user.id, what_weather(cityNN))
+        elif message.text.find("погод") != -1:
+            weather_snow_rain(message.text)
+        elif message.text.find("дождь") != -1:
+            weather_snow_rain(message.text)
+        elif message.text.find("снег") != -1:
+            weather_snow_rain(message.text)
+        elif message.text.find("обр") != -1:
+            if message.text.find("ое утр") != -1:
+                bot.send.message(message.from_user.id, random.choice(gd_mnng))
+            elif message.text.find("рый ден") != -1:
+                bot.send.message(message.from_user.id, random.choice(gd_dy))
+        elif message.text.find("акци") != -1:
+            if message.text.find(":") != -1:
+                message_price = message.text.split(": ")
+                price = message_price[1]
+                final_price = str(invest(price))
+                bot.send_message(message.from_user.id, 'Чтобы получить выгоду, тебе надо купить на'
                                                    '' + final_price + 'рублей')
+            else:
+                bot.send_message(message.from_user.id, invest_wrong_message)
         else:
-            bot.send_message(message.from_user.id, invest_wrong_message)
-    else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help")
+            bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help")
+except Exception:
+    @bot.message_handler(content_types=['text'])
+    def exception(message):
+        bot.send_message(message.from_user.id, 'Произошла какая то ошибка, свяжитесь пожалуйста с @msimakoff')
 
 
 # bot.polling(none_stop=True, interval=1)
 
 
 bot.polling(none_stop=True, interval=5)
+
+# python /Users/mSimakoff/Documents/PycharmProjects/criptexx/adel_bot_heroku.py
